@@ -1,16 +1,16 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
-export default function HomePage() {
+import Sidebar from '../shared/Sidebar';
+
+export default function HomePage(props) {
   return (
-    <section className="page-content">
-      <div className="row">
-        <div className="col-sm-12 col-lg-8">
-          This is the home page. Broken!
-        </div>
-        <aside className="col-sm-12 col-lg-4">
-          This is the sidebar
-        </aside>
+    <div className="row">
+      <div className="col-sm-12 col-md-8">
+        <Button onClick={props.incrementFunction}>Increment</Button>
+        <Button onClick={props.decrementFunction}>Decrement</Button>
       </div>
-    </section>
+      <Sidebar />
+    </div>
   );
 }
