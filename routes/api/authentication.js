@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const express = require('express');
 const mailgun = require('mailgun-js')({
   apiKey: appConfig.mailgun.apiKey,
-  domain: appConfig.mailgun.domain,
+  domain: appConfig.mailgun.domain
 });
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -81,6 +81,41 @@ router.post('/register', async (req, res) => {
   return res.send(JSON.stringify({ error: 'There was an error registering the user' }));
 });
 
+// POST to savepassword
+router.post('/savepassword', async (req, res) => {
+  let result;
+  try {
+    // look up user in the DB based on reset hash
+    const query = User.findOne({ passwordReset: req.body.hash });
+    const foundUser = await query.exec();
+
+    // If the user exists save their new password
+    if (foundUser) {
+      // user passport's built-in password set method
+      foundUser.setPassword(req.body.password, (err) => {
+        if (err) {
+          result = res.send(JSON.stringify({ error: 'Password could not be saved. Please try again' }));
+        } else {
+          // once the password's set, save the user object
+          foundUser.save((error) => {
+            if (error) {
+              result = res.send(JSON.stringify({ error: 'Password could not be saved. Please try again' }));
+            } else {
+              // Send a success message
+              result = res.send(JSON.stringify({ success: true }));
+            }
+          });
+        }
+      });
+    } else {
+      result = res.send(JSON.stringify({ error: 'Reset hash not found in database.' }));
+    }
+  } catch (err) {
+    result = res.send(JSON.stringify({ error: 'There was an error connecting to the database.' }));
+  }
+  return result;
+});
+
 // POST to saveresethash
 router.post('/saveresethash', async (req, res) => {
   let result;
@@ -126,4 +161,4 @@ router.post('/saveresethash', async (req, res) => {
   return result;
 });
 
-module.exports = router;
+module.exports = router; 
