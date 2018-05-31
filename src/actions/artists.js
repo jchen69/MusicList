@@ -3,14 +3,14 @@ import { decrementProgress, incrementProgress } from './progress';
 import { clearError } from './error';
 
 // Action Creators
-export const albumAddFailure = error => ({ type: 'MUSIC_ALBUM_ADD_FAILURE', error });
-export const albumAddSuccess = json => ({ type: 'MUSIC_ALBUM_ADD_SUCCESS', json });
-export const albumSearchClear = () => ({ type: 'MUSIC_ALBUM_SEARCH_CLEAR' });
-export const albumSearchFailure = error => ({ type: 'MUSIC_ALBUM_SEARCH_FAILURE', error });
-export const albumSearchSuccess = json => ({ type: 'MUSIC_ALBUM_SEARCH_SUCCESS', json });
+export const artistAddFailure = error => ({ type: 'MUSIC_ARTIST_ADD_FAILURE', error });
+export const artistAddSuccess = json => ({ type: 'MUSIC_ARTIST_ADD_SUCCESS', json });
+export const artistSearchClear = () => ({ type: 'MUSIC_ARTIST_SEARCH_CLEAR' });
+export const artistSearchFailure = error => ({ type: 'MUSIC_ARTIST_SEARCH_FAILURE', error });
+export const artistSearchSuccess = json => ({ type: 'MUSIC_ARTIST_SEARCH_SUCCESS', json });
 
-// Add an Album
-export function addAlbum(id) {
+// Add an Artist
+export function addArtist(id) {
   return async (dispatch) => {
     // clear the error box if it's displayed
     dispatch(clearError());
@@ -21,7 +21,7 @@ export function addAlbum(id) {
     // Send packet to our API, which will communicate with Discogs
     await fetch(
       // where to contact
-      '/api/albums/add',
+      '/api/artists/add',
       // what to send
       {
         method: 'POST',
@@ -40,37 +40,36 @@ export function addAlbum(id) {
     })
     .then((json) => {
       if (json.email) {
-        return dispatch(albumAddSuccess(json));
+        return dispatch(artistAddSuccess(json));
       }
-      return dispatch(albumAddFailure(new Error(json)));
+      return dispatch(artistAddFailure(new Error(json.error)));
     })
-    .catch(error => dispatch(albumAddFailure(new Error(error))));
+    .catch(error => dispatch(artistAddFailure(new Error(error))));
 
     // turn off spinner
     return dispatch(decrementProgress());
   };
 }
 
-// Search Albums
-export function searchAlbums(searchText) {
+// Search Artists
+export function searchArtists(searchText) {
   return async (dispatch) => {
     // clear the error box if it's displayed
     dispatch(clearError());
 
-    // turn on spinner
+
     dispatch(incrementProgress());
 
     // Build packet to send to Discogs API
     const searchQuery = {
       q: searchText,
-      type: 'master',
-      format: 'album',
+      type: 'artist',
     };
 
     // Send packet to our API, which will communicate with Discogs
     await fetch(
       // where to contact
-      '/api/albums/search',
+      '/api/artists/search',
       // what to send
       {
         method: 'POST',
@@ -89,11 +88,11 @@ export function searchAlbums(searchText) {
     })
     .then((json) => {
       if (json.results) {
-        return dispatch(albumSearchSuccess(json));
+        return dispatch(artistSearchSuccess(json));
       }
-      return dispatch(albumSearchFailure(new Error(json.error)));
+      return dispatch(artistSearchFailure(new Error(json.error)));
     })
-    .catch(error => dispatch(albumSearchFailure(new Error(error))));
+    .catch(error => dispatch(artistSearchFailure(new Error(error))));
 
     // turn off spinner
     return dispatch(decrementProgress());

@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const express = require('express');
 const mailgun = require('mailgun-js')({
   apiKey: appConfig.mailgun.apiKey,
-  domain: appConfig.mailgun.domain
+  domain: appConfig.mailgun.domain,
 });
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -148,7 +148,7 @@ router.post('/saveresethash', async (req, res) => {
       // Send it
       mailgun.messages().send(emailData, (error, body) => {
         if (error || !body) {
-          result = res.send(JSON.stringify({ error: 'Something went wrong while attempting to send the email. Please try again.' }));
+          result = res.send(JSON.stringify({ error: 'Something went wrong while attempting to send the email. Please try again' }));
         } else {
           result = res.send(JSON.stringify({ success: true }));
         }
