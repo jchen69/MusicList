@@ -6,7 +6,7 @@ import { addAlbum, albumSearchClear, searchAlbums } from '../../actions/albums';
 import AlbumsPage from './AlbumsPage';
 
 export class AlbumsPageContainer extends React.Component {
-  
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(albumSearchClear());
@@ -31,7 +31,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   searchAlbumsFunction: searchAlbums,
   dispatch,
 }, dispatch);
-
 const mapStateToProps = state => ({
   albums: state.albums,
   authentication: state.authentication,

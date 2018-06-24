@@ -51,10 +51,10 @@ class ListPageContainer extends React.Component {
       <ListPage
         albums={list.albumsPopulated}
         artists={list.artistsPopulated}
-        authentication={authentication}
+        username={list.username}
         deleteAlbumFunction={deleteAlbumFunction}
         deleteArtistFunction={deleteArtistFunction}
-        username={list.username}
+        authentication={authentication}
       />
     );
   }

@@ -20,9 +20,9 @@ export default function configureStore(initialState) {
 
   // Hot reload reducers
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      store.replaceReducer(combinedReducers);
-    });
+    module.hot.accept('../reducers', () =>
+      store.replaceReducer(combinedReducers),
+    );
   }
 
   return store;

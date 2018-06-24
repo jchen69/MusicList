@@ -42,7 +42,7 @@ export default class LoginPage extends React.Component {
         <div className="col-10 col-sm-7 col-md-5 col-lg-4">
           <AvForm onValidSubmit={this.handleValidSubmit}>
             <AvGroup>
-              <Label for="exampleEmail">Email</Label>
+              <Label for="userEmail">Email</Label>
               <AvInput
                 id="userEmail"
                 name="email"

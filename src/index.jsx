@@ -1,13 +1,14 @@
 // Default export from a module
 import React from 'react';
 
-// Individual method exports from a module
+// Individual exports from a module
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 
 // CSS from a module
 import 'bootstrap/dist/css/bootstrap.css';
+
 // CSS from a local file
 import './css/musiclist.scss';
 
@@ -15,6 +16,7 @@ import './css/musiclist.scss';
 import DevTools from './components/shared/DevTools';
 import configureStore from './store';
 
+// JSX Modules
 import TemplateContainer from './components/TemplateContainer';
 
 const Store = configureStore();
@@ -36,7 +38,5 @@ const renderApp = (Component) => {
 renderApp(TemplateContainer);
 
 if (module && module.hot) {
-  module.hot.accept('./components/TemplateContainer', () => {
-    renderApp(TemplateContainer);
-  });
+  module.hot.accept();
 }

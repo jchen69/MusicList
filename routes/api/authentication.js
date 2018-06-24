@@ -55,8 +55,8 @@ router.post('/register', async (req, res) => {
   // First, check and make sure the email doesn't already exist
   const query = User.findOne({ email: req.body.email });
   const foundUser = await query.exec();
-
   if (foundUser) { return res.send(JSON.stringify({ error: 'Email or username already exists' })); }
+
   // Create a user object to save, using values from incoming JSON
   if (!foundUser) {
     // sanitize data
@@ -69,7 +69,7 @@ router.post('/register', async (req, res) => {
       lastName: DOMPurify.sanitize(req.body.lastName),
       password: req.body.password,
     };
-    
+
     const newUser = new User(sanitizedBody);
 
     // Save, via passport's "register" method, the user
@@ -85,7 +85,7 @@ router.post('/register', async (req, res) => {
           return res.send(JSON.stringify(req.user));
         }
         // Otherwise return an error
-        return res.send(JSON.stringify({ error: 'There was an error logging in' }));
+        return res.send(JSON.stringify({ error: 'There was an error registering the user' }));
       });
     });
   }
@@ -140,10 +140,10 @@ router.post('/saveresethash', async (req, res) => {
     // If the user exists, save their password hash
     const timeInMs = Date.now();
     const hashString = `${req.body.email}${timeInMs}`;
-    const { secret } = appConfig.crypto.secret;
+    const secret = appConfig.crypto.secret;
     const hash = crypto.createHmac('sha256', secret)
-      .update(hashString)
-      .digest('hex');
+                       .update(hashString)
+                       .digest('hex');
     foundUser.passwordReset = hash;
 
     foundUser.save((err) => {
@@ -151,7 +151,7 @@ router.post('/saveresethash', async (req, res) => {
 
       // Put together the email
       const emailData = {
-        from: 'JellyD <postmaster@${appConfig.mailgun.domain}>',
+        from: `JiadongChen <postmaster@${appConfig.mailgun.domain}>`,
         to: foundUser.email,
         subject: 'Reset Your Password',
         text: `A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: https://musiclist.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
@@ -161,7 +161,7 @@ router.post('/saveresethash', async (req, res) => {
       // Send it
       mailgun.messages().send(emailData, (error, body) => {
         if (error || !body) {
-          result = res.send(JSON.stringify({ error: 'Something went wrong while attempting to send the email. Please try again' }));
+          result = res.send(JSON.stringify({ error: 'Something went wrong while attempting to send the email. Please try again.' }));
         } else {
           result = res.send(JSON.stringify({ success: true }));
         }
@@ -174,4 +174,4 @@ router.post('/saveresethash', async (req, res) => {
   return result;
 });
 
-module.exports = router; 
+module.exports = router;

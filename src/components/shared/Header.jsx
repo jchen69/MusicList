@@ -17,9 +17,9 @@ export default class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.logOutClick = this.logOutClick.bind(this);
     this.renderGreeting = this.renderGreeting.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
 
     this.state = {
       isOpen: false,
@@ -43,7 +43,7 @@ export default class Header extends React.Component {
       <Nav className="ml-auto" navbar>
         <NavItem>
           <span className="nav-link">Welcome, {name}
-           &nbsp;| <a href="/logout" onClick={this.logOutClick}>Log Out</a>
+           | <a href="/logout" onClick={this.logOutClick}>Log Out</a>
           </span>
         </NavItem>
       </Nav>

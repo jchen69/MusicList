@@ -5,14 +5,15 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('musiclist:server');
+var appConfig = require('../config.js');
+var debug = require('debug')('musiclist2:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || appConfig.port);
 app.set('port', port);
 
 /**

@@ -37,7 +37,7 @@ module.exports = {
         exclude: /(node_modules|bower_components|public\/)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'es2017'],
+          presets: ['env'],
         },
       },
       {
@@ -45,11 +45,11 @@ module.exports = {
         exclude: /(node_modules|bower_components|public\/)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'es2017'],
+          presets: ['env'],
         },
       },
       {
-        test: /\.css?$/,
+        test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader',
@@ -122,4 +122,3 @@ if (process.env.NODE_ENV !== 'production') {
   );
   module.exports.plugins.unshift(new webpack.HotModuleReplacementPlugin());
 }
-

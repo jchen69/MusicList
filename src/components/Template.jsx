@@ -25,10 +25,10 @@ export default function Template(props) {
           <Route exact path="/" component={HomePage} />
           <Route path="/account/change-password/:hash" component={ChangePasswordPage} />
           <Route exact path="/account/login" component={LoginPage} />
-          <Route path="/account/profile/:id" component={ProfilePage} />
           <Route exact path="/account/register" component={RegisterPage} />
           <Route exact path="/account/registration-success" component={RegistrationSuccessPage} />
           <Route exact path="/account/reset-password" component={ResetPasswordPage} />
+          <Route path="/account/profile/:id" component={ProfilePage} />
           <Route exact path="/albums" component={AlbumsPage} />
           <Route exact path="/artists" component={ArtistsPage} />
           <Route path="/list/:username" component={ListPage} />

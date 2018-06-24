@@ -8,7 +8,7 @@ const formatMembers = (discogsMembers) => {
   return memberNames.join(', ');
 };
 
-export default class ListPage extends React.Component {
+export default class ArtistsPage extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -12,7 +12,7 @@ const router = express.Router();
 mongoose.Promise = global.Promise;
 
 // configure Discogs
-const discogsClient = new Discogs('MusicList-chen/0.1', {
+const discogsClient = new Discogs('MusicList-closebrace/0.1', {
   consumerKey: appConfig.discogs.key,
   consumerSecret: appConfig.discogs.secret,
 });
@@ -61,7 +61,7 @@ const saveArtists = async (artists) => {
     }
     return true;
   }
-}; 
+};
 
 // POST to /add
 router.post('/add', async (req, res) => {
