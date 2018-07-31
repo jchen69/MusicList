@@ -155,7 +155,7 @@ router.post('/saveresethash', async (req, res) => {
         to: foundUser.email,
         subject: 'Reset Your Password',
         text: `A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: https://jiadongchen.com/account/change-password/${foundUser.passwordReset} ... if you didn't make this request, feel free to ignore it!`,
-        html: `<p>A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: <a href="https://jiadongchen.com/account/change-password/${foundUser.passwordReset}&quot; target="_blank">https://musiclist.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
+        html: `<p>A password reset has been requested for the MusicList account connected to this email address. If you made this request, please click the following link: <a href="https://jiadongchen.com/account/change-password/${foundUser.passwordReset}&quot; target="_blank">https://jiadongchen.com/account/change-password/${foundUser.passwordReset}</a>.</p><p>If you didn't make this request, feel free to ignore it!</p>`,
       };
 
       // Send it
