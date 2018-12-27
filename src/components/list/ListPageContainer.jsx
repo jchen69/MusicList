@@ -43,8 +43,10 @@ class ListPageContainer extends React.Component {
 
   render() {
     const { authentication, deleteAlbumFunction, deleteArtistFunction, list } = this.props;
-    if (list.username === '') {
-      return (<p />);
+    if (authentication.username === '') {
+      return (
+        <Redirect to="/" />
+      );
     }
 
     return (
