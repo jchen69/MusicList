@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { deleteAlbum, populateAlbums } from '../../actions/albums';
